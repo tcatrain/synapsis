@@ -30,7 +30,6 @@ public class MemoryLibraryDAO implements ILibraryDAO {
 
     @Override
     public Library getLibrary(String _id) {
-        System.out.println("MemoryLibraryDAO.getLibrary.start");
         return MemoryLibraryDAO.LIBRARY_MAP.get(_id);
     }
 

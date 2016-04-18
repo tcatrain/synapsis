@@ -34,7 +34,6 @@ public class DefaultLibraryBusiness implements ILibraryBusiness {
 
     @Override
     public Library readLibrary(String _id) {
-        System.out.println("DefaultLibraryBusiness.readLibrary.start");
         return this.libraryDAO.getLibrary(_id);
     }
 

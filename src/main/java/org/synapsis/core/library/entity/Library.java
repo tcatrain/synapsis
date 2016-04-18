@@ -22,7 +22,6 @@ public class Library implements Serializable {
     private String id;
     private String name;
 
-
     @XmlElement(name = "id")
     public String getId() {
         return id;
