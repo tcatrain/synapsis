@@ -18,29 +18,30 @@ import java.util.UUID;
 @AutoBindSingleton(baseClass = ILibraryDAO.class)
 public class MemoryLibraryDAO implements ILibraryDAO {
 
-    private static Map<UUID, Library> LIBRARY_MAP = new HashMap<>();
+    private static Map<String, Library> LIBRARY_MAP = new HashMap<>();
 
     @Override
-    public UUID insertLibrary(Library _library) {
-        UUID _id = UUID.randomUUID();
+    public String insertLibrary(Library _library) {
+        String _id = UUID.randomUUID().toString();
         _library.setId(_id);
         LIBRARY_MAP.put(_id, _library);
         return _id;
     }
 
     @Override
-    public Library getLibrary(UUID _id) {
+    public Library getLibrary(String _id) {
+        System.out.println("MemoryLibraryDAO.getLibrary.start");
         return MemoryLibraryDAO.LIBRARY_MAP.get(_id);
     }
 
     @Override
-    public Boolean updateLibrary(UUID _id, Library _library) {
+    public Boolean updateLibrary(String _id, Library _library) {
         LIBRARY_MAP.replace(_id, _library);
         return Boolean.TRUE;
     }
 
     @Override
-    public Boolean deleteLibrary(UUID _id) {
+    public Boolean deleteLibrary(String _id) {
         LIBRARY_MAP.remove(_id);
         return Boolean.TRUE;
     }

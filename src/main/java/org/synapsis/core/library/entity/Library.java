@@ -1,5 +1,8 @@
 package org.synapsis.core.library.entity;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.UUID;
@@ -11,26 +14,25 @@ import java.util.UUID;
  * Author     : Thierry CATRAIN
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class Library implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private UUID id;
+    private String id;
     private String name;
-    private Integer addressNumber;
-    private String addressStreet;
-    private Integer addressZipCode;
-    private String addressTown;
 
 
-    public UUID getId() {
+    @XmlElement(name = "id")
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
+    @XmlElement(name = "name")
     public String getName() {
         return name;
     }
@@ -39,35 +41,4 @@ public class Library implements Serializable {
         this.name = name;
     }
 
-    public Integer getAddressNumber() {
-        return addressNumber;
-    }
-
-    public void setAddressNumber(Integer addressNumber) {
-        this.addressNumber = addressNumber;
-    }
-
-    public String getAdressStreet() {
-        return addressStreet;
-    }
-
-    public void setAddressStreet(String addressStreet) {
-        this.addressStreet = addressStreet;
-    }
-
-    public Integer getAddressZipCode() {
-        return addressZipCode;
-    }
-
-    public void setAddressZipCode(Integer addressZipCode) {
-        this.addressZipCode = addressZipCode;
-    }
-
-    public String getAddressTown() {
-        return addressTown;
-    }
-
-    public void setAddressTown(String addressTown) {
-        this.addressTown = addressTown;
-    }
 }

@@ -28,22 +28,23 @@ public class DefaultLibraryBusiness implements ILibraryBusiness {
     }
 
     @Override
-    public UUID createLibrary(Library _library) {
+    public String createLibrary(Library _library) {
         return this.libraryDAO.insertLibrary(_library);
     }
 
     @Override
-    public Library readLibrary(UUID _id) {
+    public Library readLibrary(String _id) {
+        System.out.println("DefaultLibraryBusiness.readLibrary.start");
         return this.libraryDAO.getLibrary(_id);
     }
 
     @Override
-    public Boolean updateLibrary(UUID _id, Library _library) {
+    public Boolean updateLibrary(String _id, Library _library) {
         return this.libraryDAO.updateLibrary(_id, _library);
     }
 
     @Override
-    public Boolean deleteLibrary(UUID _id) {
+    public Boolean deleteLibrary(String _id) {
         return this.libraryDAO.deleteLibrary(_id);
     }
 
