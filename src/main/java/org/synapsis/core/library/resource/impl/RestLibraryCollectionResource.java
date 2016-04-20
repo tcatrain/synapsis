@@ -1,0 +1,34 @@
+package org.synapsis.core.library.resource.impl;
+
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import org.synapsis.core.library.business.ILibraryBusiness;
+import org.synapsis.core.library.business.impl.DefaultLibraryBusiness;
+import org.synapsis.core.library.resource.ILibraryCollectionResource;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+/**
+ * Copyright 2016 (C) SYNAPSIS
+ * <p>
+ * Created on : 18/04/2016
+ * Author     : Thierry CATRAIN
+ */
+@Path("/api/libraries")
+@Singleton()
+public class RestLibraryCollectionResource implements ILibraryCollectionResource {
+
+    @Inject
+    private ILibraryBusiness libraryBusiness;
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response list() {
+        return Response.ok(this.libraryBusiness.readAllLibraries()).build();
+    }
+
+}
