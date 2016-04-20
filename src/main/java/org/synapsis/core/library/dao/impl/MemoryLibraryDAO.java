@@ -1,6 +1,6 @@
 package org.synapsis.core.library.dao.impl;
 
-import com.netflix.governator.annotations.AutoBindSingleton;
+import com.google.inject.Singleton;
 import org.synapsis.core.library.dao.ILibraryDAO;
 import org.synapsis.core.library.entity.Library;
 
@@ -15,7 +15,7 @@ import java.util.UUID;
  * Created on : 17/04/2016
  * Author     : Thierry CATRAIN
  */
-@AutoBindSingleton(baseClass = ILibraryDAO.class)
+@Singleton()
 public class MemoryLibraryDAO implements ILibraryDAO {
 
     private static Map<String, Library> LIBRARY_MAP = new HashMap<>();

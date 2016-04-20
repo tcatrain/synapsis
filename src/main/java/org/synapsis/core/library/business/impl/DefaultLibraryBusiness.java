@@ -1,7 +1,7 @@
 package org.synapsis.core.library.business.impl;
 
 import com.google.inject.Inject;
-import com.netflix.governator.annotations.AutoBindSingleton;
+import com.google.inject.Singleton;
 import com.sun.jersey.api.core.InjectParam;
 import org.synapsis.core.library.business.ILibraryBusiness;
 import org.synapsis.core.library.dao.ILibraryDAO;
@@ -17,15 +17,11 @@ import java.util.UUID;
  * Created on : 17/04/2016
  * Author     : Thierry CATRAIN
  */
-@AutoBindSingleton(baseClass = ILibraryBusiness.class)
+@Singleton()
 public class DefaultLibraryBusiness implements ILibraryBusiness {
 
-    private final ILibraryDAO libraryDAO;
-
     @Inject
-    public DefaultLibraryBusiness(@InjectParam MemoryLibraryDAO _libraryDAO) {
-        this.libraryDAO = _libraryDAO;
-    }
+    private ILibraryDAO libraryDAO;
 
     @Override
     public String createLibrary(Library _library) {
