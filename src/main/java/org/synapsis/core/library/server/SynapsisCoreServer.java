@@ -27,7 +27,7 @@ public class SynapsisCoreServer {
     private int port;
 
     private SynapsisCoreServer() {
-        this.port = 5000;
+        this.port = 80;
         this.server = new Server(this.port);
         this.applicationId = "synapsis-core";
         Guice.createInjector(new SynapsisCoreModule());
