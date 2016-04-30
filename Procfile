@@ -1,1 +1,1 @@
-web: build/install/synapsis-core/bin/synapsis-core
+web: ./build/install/synapsis-core/bin/synapsis-core

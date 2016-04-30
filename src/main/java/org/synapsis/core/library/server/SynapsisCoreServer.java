@@ -27,7 +27,7 @@ public class SynapsisCoreServer {
     private int port;
 
     private SynapsisCoreServer() {
-        this.port = 8080;
+        this.port = 5000;
         this.server = new Server(this.port);
         this.applicationId = "synapsis-core";
         Guice.createInjector(new SynapsisCoreModule());
@@ -42,9 +42,6 @@ public class SynapsisCoreServer {
 
     public static void main(String args[]) throws Exception {
         SynapsisCoreServer synapsisCoreServer = new SynapsisCoreServer();
-        Properties configProp = new Properties();
-        configProp.load(SynapsisCoreServer.class.getClassLoader().getResourceAsStream(synapsisCoreServer.applicationId.concat(".properties")));
-        System.out.println(configProp.getProperty("jersey.resources.package", "noJerseyResourcesPackageDefined"));
         synapsisCoreServer.start();
     }
 }
