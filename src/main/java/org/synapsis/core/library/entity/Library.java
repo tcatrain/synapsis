@@ -21,6 +21,7 @@ public class Library implements Serializable {
 
     private UUID id;
     private String name;
+    private String phone;
 
     @XmlElement(name = "id")
     public UUID getId() {
@@ -38,6 +39,15 @@ public class Library implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @XmlElement(name = "phone")
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
 }
