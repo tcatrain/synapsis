@@ -31,16 +31,14 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.12'
 }
 
-task stage {
-    dependsOn build
-}
+task stage (dependsOn: ['build', 'installApp'])
 
 mainClassName = 'org.synapsis.core.library.server.SynapsisCoreServer';
 
 distributions {
     main {
         contents {
-            into('bin') {
+            into('conf/') {
                 from {'src/main/resources/'}
                 include '**.properties'
             }
@@ -51,7 +49,7 @@ distributions {
 tasks.startScripts {
     doLast {
         def scriptFile = file "${outputDir}/${applicationName}"
-        scriptFile.text = scriptFile.text.replace('CLASSPATH=$APP_HOME/lib', 'CLASSPATH=$APP_HOME:$APP_HOME/lib')
-        scriptFile.text = scriptFile.text.replace('CLASSPATH=$APP_HOME\\lib', 'CLASSPATH=$APP_HOME:$APP_HOME\\lib')
+        scriptFile.text = scriptFile.text.replace('CLASSPATH=$APP_HOME/conf', 'CLASSPATH=$APP_HOME:$APP_HOME/conf')
+        scriptFile.text = scriptFile.text.replace('CLASSPATH=$APP_HOME\\conf', 'CLASSPATH=$APP_HOME:$APP_HOME\\conf')
     }
 }
