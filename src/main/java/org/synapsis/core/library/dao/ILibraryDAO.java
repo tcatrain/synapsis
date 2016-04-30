@@ -13,13 +13,13 @@ import java.util.UUID;
  */
 public interface ILibraryDAO {
 
-    String insertLibrary(Library _library);
+    UUID insertLibrary(Library _library);
 
-    Library getLibrary(String _id);
+    Library getLibrary(UUID _id);
 
-    Boolean updateLibrary(String _id, Library _library);
+    Boolean updateLibrary(UUID _id, Library _library);
 
-    Boolean deleteLibrary(String _id);
+    Boolean deleteLibrary(UUID _id);
 
     Collection<Library> getAllLibraries();
 

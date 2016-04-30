@@ -13,13 +13,13 @@ import java.util.UUID;
  */
 public interface ILibraryBusiness {
 
-    String createLibrary(Library _library);
+    UUID createLibrary(Library _library);
 
-    Library readLibrary(String _id);
+    Library readLibrary(UUID _id);
 
-    Boolean updateLibrary(String _id, Library _library);
+    Boolean updateLibrary(UUID _id, Library _library);
 
-    Boolean deleteLibrary(String _id);
+    Boolean deleteLibrary(UUID _id);
 
     Collection<Library> readAllLibraries();
 

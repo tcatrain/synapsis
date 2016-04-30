@@ -19,15 +19,15 @@ public class Library implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String id;
+    private UUID id;
     private String name;
 
     @XmlElement(name = "id")
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

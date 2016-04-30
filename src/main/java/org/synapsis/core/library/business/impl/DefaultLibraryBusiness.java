@@ -2,10 +2,8 @@ package org.synapsis.core.library.business.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.sun.jersey.api.core.InjectParam;
 import org.synapsis.core.library.business.ILibraryBusiness;
 import org.synapsis.core.library.dao.ILibraryDAO;
-import org.synapsis.core.library.dao.impl.MemoryLibraryDAO;
 import org.synapsis.core.library.entity.Library;
 
 import java.util.Collection;
@@ -24,22 +22,22 @@ public class DefaultLibraryBusiness implements ILibraryBusiness {
     private ILibraryDAO libraryDAO;
 
     @Override
-    public String createLibrary(Library _library) {
+    public UUID createLibrary(Library _library) {
         return this.libraryDAO.insertLibrary(_library);
     }
 
     @Override
-    public Library readLibrary(String _id) {
+    public Library readLibrary(UUID _id) {
         return this.libraryDAO.getLibrary(_id);
     }
 
     @Override
-    public Boolean updateLibrary(String _id, Library _library) {
+    public Boolean updateLibrary(UUID _id, Library _library) {
         return this.libraryDAO.updateLibrary(_id, _library);
     }
 
     @Override
-    public Boolean deleteLibrary(String _id) {
+    public Boolean deleteLibrary(UUID _id) {
         return this.libraryDAO.deleteLibrary(_id);
     }
 

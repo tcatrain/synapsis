@@ -1,7 +1,7 @@
 group 'org.synapsis'
 version '1.0-SNAPSHOT'
 
-apply plugin: 'java'
+apply plugin: 'application'
 
 repositories {
     mavenCentral()
@@ -9,8 +9,6 @@ repositories {
 }
 
 dependencies {
-    compile 'javax.ws.rs:jsr311-api:1.1.1'
-
     compile 'org.eclipse.jetty:jetty-server:9.1.5.v20140505'
     compile 'org.eclipse.jetty:jetty-servlet:9.1.5.v20140505'
     compile 'org.eclipse.jetty:jetty-servlets:9.1.5.v20140505'
@@ -27,15 +25,29 @@ dependencies {
     compile 'org.codehaus.jackson:jackson-xc:1.9.11'
 
     compile 'org.slf4j:slf4j-api:1.7.2'
-
-    testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
-jar {
-    from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }) {
-        exclude "META-INF/*.SF"
-        exclude "META-INF/*.DSA"
-        exclude "META-INF/*.RSA"
+task stage {
+    dependsOn build
+}
+
+mainClassName = 'org.synapsis.core.library.server.SynapsisCoreServer';
+
+distributions {
+    main {
+        contents {
+            into('bin') {
+                from {'src/main/resources/'}
+                include '**.properties'
+            }
+        }
     }
-    manifest { attributes 'Main-Class': 'org.synapsis.core.library.server.SynapsisCoreServer' }
+}
+
+tasks.startScripts {
+    doLast {
+        def scriptFile = file "${outputDir}/${applicationName}"
+        scriptFile.text = scriptFile.text.replace('CLASSPATH=$APP_HOME/lib', 'CLASSPATH=$APP_HOME:$APP_HOME/lib')
+        scriptFile.text = scriptFile.text.replace('CLASSPATH=$APP_HOME\\lib', 'CLASSPATH=$APP_HOME:$APP_HOME\\lib')
+    }
 }

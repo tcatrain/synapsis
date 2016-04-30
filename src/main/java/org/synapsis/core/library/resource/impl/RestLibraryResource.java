@@ -10,6 +10,7 @@ import org.synapsis.core.library.resource.ILibraryResource;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.Collection;
+import java.util.UUID;
 
 /**
  * Copyright 2016 (C) SYNAPSIS
@@ -27,22 +28,22 @@ public class RestLibraryResource implements ILibraryResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(Library _library, @Context UriInfo uriInfo) {
-        String id = this.libraryBusiness.createLibrary(_library);
-        UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder().path(id);
+        UUID id = this.libraryBusiness.createLibrary(_library);
+        UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder().path(id.toString());
         return Response.created(uriBuilder.build()).build();
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response read(@PathParam("id") String _id) {
+    public Response read(@PathParam("id") UUID _id) {
         return Response.ok(this.libraryBusiness.readLibrary(_id)).build();
     }
 
     @PUT
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") String _id, Library _library) {
+    public Response update(@PathParam("id") UUID _id, Library _library) {
         this.libraryBusiness.updateLibrary(_id, _library);
         return Response.ok().build();
     }
@@ -50,7 +51,7 @@ public class RestLibraryResource implements ILibraryResource {
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("id") String _id) {
+    public Response delete(@PathParam("id") UUID _id) {
         this.libraryBusiness.deleteLibrary(_id);
         return Response.ok().build();
     }
