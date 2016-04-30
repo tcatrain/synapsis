@@ -27,7 +27,13 @@ public class SynapsisCoreServer {
     private int port;
 
     private SynapsisCoreServer() {
-        this.port = 5000;
+
+        if (System.getenv("PORT") == null || System.getenv("PORT").isEmpty()) {
+            this.port = 8080;
+        } else {
+            this.port = Integer.valueOf(System.getenv("PORT"));
+        }
+        System.out.println("starting on port : " + this.port);
         this.server = new Server(this.port);
         this.applicationId = "synapsis-core";
         Guice.createInjector(new SynapsisCoreModule());
