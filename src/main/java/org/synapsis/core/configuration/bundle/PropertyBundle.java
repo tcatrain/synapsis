@@ -1,4 +1,4 @@
-package org.synapsis.core.configuration;
+package org.synapsis.core.configuration.bundle;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,11 +33,15 @@ public class PropertyBundle {
         this.propertyBundleProperties = new HashMap<>();
     }
 
+    public String getPropertyBundleFilename() {
+        return this.propertyBundleFilename;
+    }
+
     public void setPropertyBundleFilename(String _propertyBundleFilename) {
         this.propertyBundleFilename = getFormattedPropertyBundleFilename(_propertyBundleFilename);;
     }
 
-    public void load() {
+    public PropertyBundle load() {
         Properties properties = new Properties();
         InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(this.propertyBundleFilename);
         try {
@@ -54,6 +58,7 @@ public class PropertyBundle {
         } catch (IOException ioex) {
             LOGGER.error("Unable to load {} property bundle", this.propertyBundleFilename, ioex);
         }
+        return this;
     }
 
     public <T> T getProperty(String _propertyName, Class<T> klass) {

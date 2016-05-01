@@ -8,11 +8,9 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.synapsis.core.configuration.ConfigurationManager;
-import org.synapsis.core.configuration.PropertyBundle;
 
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
-import java.util.Properties;
 
 /**
  * Copyright 2016 (C) SYNAPSIS
@@ -48,9 +46,6 @@ public class SynapsisCoreServer {
 
     public static void main(String args[]) throws Exception {
         ConfigurationManager.setApplicationName("synapsis-core");
-        PropertyBundle propertyBundle = ConfigurationManager.getDefaultPropertyBundle();
-        Integer intPort = propertyBundle.getProperty("jetty.http.port", Integer.class);
-        LOGGER.info("Successfully retrived Integer port {}", intPort);
         SynapsisCoreServer synapsisCoreServer = new SynapsisCoreServer();
         synapsisCoreServer.start();
     }

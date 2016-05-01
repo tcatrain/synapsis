@@ -47,10 +47,16 @@ distributions {
     }
 }
 
+jar {
+    exclude '**/*.properties'
+}
+
 tasks.startScripts {
     doLast {
-        def scriptFile = file "${outputDir}/${applicationName}"
-        scriptFile.text = scriptFile.text.replace('CLASSPATH=$APP_HOME/conf', 'CLASSPATH=$APP_HOME:$APP_HOME/conf')
-        scriptFile.text = scriptFile.text.replace('CLASSPATH=$APP_HOME\\conf', 'CLASSPATH=$APP_HOME:$APP_HOME\\conf')
+        def windowsScriptFile = file getWindowsScript()
+        def unixScriptFile    = file getUnixScript()
+
+        windowsScriptFile.text = windowsScriptFile.text.replace('CLASSPATH=', 'CLASSPATH=%APP_HOME%\\conf;')
+        unixScriptFile.text = unixScriptFile.text.replace('CLASSPATH=', 'CLASSPATH=$APP_HOME/conf:')
     }
 }

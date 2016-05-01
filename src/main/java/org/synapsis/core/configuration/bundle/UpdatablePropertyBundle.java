@@ -1,4 +1,4 @@
-package org.synapsis.core.configuration;
+package org.synapsis.core.configuration.bundle;
 
 /**
  * Copyright 2016 (C) SYNAPSIS
