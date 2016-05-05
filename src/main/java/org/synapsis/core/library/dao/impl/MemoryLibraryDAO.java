@@ -18,7 +18,7 @@ import java.util.UUID;
 @Singleton()
 public class MemoryLibraryDAO implements ILibraryDAO {
 
-    private static Map<UUID, Library> LIBRARY_MAP = new HashMap<>();
+    private final static Map<UUID, Library> LIBRARY_MAP = new HashMap<>();
 
     @Override
     public UUID insertLibrary(Library _library) {

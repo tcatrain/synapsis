@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.synapsis.core.configuration.bundle.PropertyBundle;
 import org.synapsis.core.configuration.bundle.UpdatablePropertyBundle;
-import org.synapsis.core.configuration.caching.CacheManager;
+import org.synapsis.core.configuration.caching.CacheFacade;
 
 /**
  * Copyright 2016 (C) SYNAPSIS
@@ -15,7 +15,7 @@ import org.synapsis.core.configuration.caching.CacheManager;
 public class ConfigurationManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationManager.class);
-    private static final CacheManager CACHE_MANAGER = new CacheManager();
+    private static final CacheFacade CACHE_FACADE = new CacheFacade();
     private static String APPLICATION_NAME = null;
 
     public static synchronized void setApplicationName(String _applicationName) {
@@ -31,15 +31,10 @@ public class ConfigurationManager {
     }
 
     public static PropertyBundle getPropertyBundle(String _propertyBundleFilename) {
-        PropertyBundle propertyBundle = CACHE_MANAGER.getEntry(_propertyBundleFilename);
-        if (propertyBundle != null) return propertyBundle;
-
-        propertyBundle = new PropertyBundle(_propertyBundleFilename).load();
-        return CACHE_MANAGER.addEntry(_propertyBundleFilename, propertyBundle);
+        return CACHE_FACADE.getEntry(_propertyBundleFilename, PropertyBundle.class);
     }
 
     public static PropertyBundle getUpdatablePropertyBundle(String _updatablePropertyBundleFilename) {
-        UpdatablePropertyBundle propertyBundle = new UpdatablePropertyBundle(_updatablePropertyBundleFilename);
-        return propertyBundle;
+        return CACHE_FACADE.getEntry(_updatablePropertyBundleFilename, UpdatablePropertyBundle.class);
     }
 }

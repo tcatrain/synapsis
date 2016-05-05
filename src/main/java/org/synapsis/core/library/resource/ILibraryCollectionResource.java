@@ -4,6 +4,6 @@ import javax.ws.rs.core.Response;
 
 public interface ILibraryCollectionResource {
 
-    public Response list();
+    Response list();
 
 }

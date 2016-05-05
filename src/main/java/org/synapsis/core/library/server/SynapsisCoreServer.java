@@ -22,18 +22,17 @@ public class SynapsisCoreServer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SynapsisCoreServer.class);
 
-    private Server server;
-    private String applicationId;
-    private int port;
+    private final Server server;
+    private final static String APPLICATION_ID = "synapsis-core";
 
     private SynapsisCoreServer() {
+        int port;
         if (System.getenv("PORT") == null || System.getenv("PORT").isEmpty()) {
-            this.port = 8080;
+            port = 8080;
         } else {
-            this.port = Integer.valueOf(System.getenv("PORT"));
+            port = Integer.valueOf(System.getenv("PORT"));
         }
-        this.server = new Server(this.port);
-        this.applicationId = "synapsis-core";
+        this.server = new Server(port);
         Guice.createInjector(new SynapsisCoreModule());
     }
 
@@ -45,7 +44,7 @@ public class SynapsisCoreServer {
     }
 
     public static void main(String args[]) throws Exception {
-        ConfigurationManager.setApplicationName("synapsis-core");
+        ConfigurationManager.setApplicationName(APPLICATION_ID);
         SynapsisCoreServer synapsisCoreServer = new SynapsisCoreServer();
         synapsisCoreServer.start();
     }

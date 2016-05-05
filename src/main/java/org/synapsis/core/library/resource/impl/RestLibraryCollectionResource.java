@@ -25,17 +25,12 @@ import javax.ws.rs.core.Response;
 @Singleton()
 public class RestLibraryCollectionResource implements ILibraryCollectionResource {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RestLibraryCollectionResource.class);
-
     @Inject
     private ILibraryBusiness libraryBusiness;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response list() {
-        PropertyBundle propertyBundle = ConfigurationManager.getDefaultPropertyBundle();
-        Integer intPort = propertyBundle.getProperty("jetty.http.port", Integer.class);
-        LOGGER.info("Successfully retrieved Integer port {}", intPort);
         return Response.ok(this.libraryBusiness.readAllLibraries()).build();
     }
 

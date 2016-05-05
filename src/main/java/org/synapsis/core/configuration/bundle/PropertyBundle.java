@@ -3,9 +3,11 @@ package org.synapsis.core.configuration.bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Properties;
@@ -20,16 +22,17 @@ public class PropertyBundle {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PropertyBundle.class);
     private static final String PROPERTY_BUNDLE_EXTENSION = ".properties";
-    private HashMap<String, String> propertyBundleProperties;
-    private String propertyBundleFilename;
+    private final HashMap<String, String> propertyBundleProperties;
+    protected String propertyBundleFilename;
+    protected URL resourceUrl;
 
     public PropertyBundle() {
         this.propertyBundleFilename = null;
         this.propertyBundleProperties = new HashMap<>();
     }
 
-    public PropertyBundle(String _propertyBundle) {
-        this.propertyBundleFilename = getFormattedPropertyBundleFilename(_propertyBundle);
+    public PropertyBundle(String _propertyBundleFilename) {
+        this.propertyBundleFilename = getFormattedPropertyBundleFilename(_propertyBundleFilename);
         this.propertyBundleProperties = new HashMap<>();
     }
 
@@ -38,17 +41,21 @@ public class PropertyBundle {
     }
 
     public void setPropertyBundleFilename(String _propertyBundleFilename) {
-        this.propertyBundleFilename = getFormattedPropertyBundleFilename(_propertyBundleFilename);;
+        this.propertyBundleFilename = getFormattedPropertyBundleFilename(_propertyBundleFilename);
     }
 
     public PropertyBundle load() {
         Properties properties = new Properties();
-        InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(this.propertyBundleFilename);
+        this.resourceUrl = Thread.currentThread().getContextClassLoader().getResource(this.propertyBundleFilename);
+        if (this.resourceUrl == null) return null;
+
         try {
+            InputStream inputStream = this.resourceUrl.openStream();
             properties.load(inputStream);
+            inputStream.close();
 
             Enumeration<Object> propertyKeys = properties.keys();
-            String key, value = null;
+            String key, value;
             while (propertyKeys.hasMoreElements()) {
                 key = propertyKeys.nextElement().toString();
                 value = properties.get(key).toString();
